@@ -70,11 +70,18 @@ func getAlbumByID(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Albun no encontrado"})
 }
 
+// Obtener po id un albuns
+func isHealthy(c *gin.Context) {
+
+	c.IndentedJSON(http.StatusOK, "ping")
+}
+
 func main() {
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
 	router.POST("/albums", postAlbums)
 	router.GET("/albums/:id", getAlbumByID)
+	router.GET("/", isHealthy)
 
 	router.Run(":8080")
 }
