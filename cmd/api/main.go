@@ -31,7 +31,7 @@ func getAlbums(c *gin.Context) {
 	fmt.Println("IP local de la máquina:", GetLocalIp())
 
 	// Responder con los datos de los álbumes
-	c.IndentedJSON(http.StatusOK, albums)
+	c.IndentedJSON(http.StatusOK, GetLocalIp())
 }
 
 func GetLocalIp() net.IP {
