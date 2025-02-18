@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"log"
+	"net"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -23,9 +26,22 @@ var albums = []album{
 	{ID: "5", Title: "25", Artist: "Adele", Year: 2015},
 }
 
-// Obtener lista de albums
 func getAlbums(c *gin.Context) {
+	// Obtener la dirección IP local de la máquina
+	fmt.Println("IP local de la máquina:", GetLocalIp())
+
+	// Responder con los datos de los álbumes
 	c.IndentedJSON(http.StatusOK, albums)
+}
+
+func GetLocalIp() net.IP {
+	conn, err := net.Dial("udp", "8.8.8.8:80")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+	localAddr := conn.LocalAddr().(*net.UDPAddr)
+	return localAddr.IP
 }
 
 // Agregar un albums
